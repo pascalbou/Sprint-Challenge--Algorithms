@@ -92,12 +92,42 @@ class SortingRobot:
         """
         return self._light == "ON"
 
+    # Battle plan
+
+    # final stop if robot carries nothing and if cannot move right
+        # loop until cannot move right
+            # swap
+            # move right
+            # compare if item held is bigger
+                # swap if yes
+        # move left
+            # compare until item is None
+                # swap if yes
+        # redo the whole loop (recursive)
+
     def sort(self):
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+        if not self.light_is_on():
+            if not self.can_move_right():
+                # self.set_light_off()
+                return
+            else:
+                self.swap_item()
+                self.set_light_on()
+
+        while self.can_move_right():
+            self.move_right()
+            if self.compare_item() > 0:
+                self.swap_item()
+
+        while self.light_is_on():
+            self.move_left()
+            if self.compare_item() == None:
+                self.swap_item()
+                self.set_light_off()
+                # self.sort()
 
 
 if __name__ == "__main__":
